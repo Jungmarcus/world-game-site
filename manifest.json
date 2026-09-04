@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "built_at": "2026-09-04T23:16:37.437Z",
+  "date": "2026-09-04",
+  "snapshot_date": "2026-09-04",
+  "snapshot_fingerprint": "d4db35c3750bfecf322799f35eed77a47e6c11c47a9ca67b9497aded002c3f9e",
+  "kdf": "PBKDF2-SHA256",
+  "iterations": 400000,
+  "salt": "Q3I4BHQaC7En3CQvv6S1Xw==",
+  "cipher": "AES-256-GCM",
+  "iv": "2LBZ9ByLjtU4wgGT",
+  "plaintext_sha256": "e09eb072f1c1e24ab72fa1800075fdee06ccccbf40142240656a0024406e09a1",
+  "sizes": {
+    "plaintext": 1410241,
+    "payload": 1410257,
+    "game": 1281961,
+    "latest": 113877,
+    "wire": 9570
+  },
+  "includes": {
+    "latest": true,
+    "wire": true,
+    "public": [
+      "commitments.json",
+      "revealed.json",
+      "signing.json"
+    ]
+  },
+  "signed_files": [
+    "world-2026-09-04.json",
+    "world-2026-09-04.sig.json",
+    "latest.sig.json"
+  ]
+}

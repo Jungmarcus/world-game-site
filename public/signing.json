@@ -1,0 +1,7 @@
+{
+  "alg": "Ed25519",
+  "public_key_pem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA7IRxm7ZzZ2+sIhpQZndsjVgxbc/68+/waGXM0SwDWtQ=\n-----END PUBLIC KEY-----\n",
+  "key_id": "d9f5101a82f350e1",
+  "created": "2026-09-04T23:13:30.100Z",
+  "note": "Verify any snapshots/world-YYYY-MM-DD.json against its .sig.json with build/verify-snapshot.js or public/verify.html. The private key never leaves the signing machine."
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>WORLD GAME</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;background:#070b12;color:#dce7f7;font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.5}
+main{max-width:520px;margin:0 auto;padding:12vh 20px 40px}
+h1{font-size:22px;letter-spacing:.18em;font-weight:600;color:#fff}
+h1 small{display:block;font-size:11px;letter-spacing:.3em;color:#63789b;margin-top:6px;font-weight:500}
+.meta{color:#8ea3c4;font-size:13px;margin:22px 0 26px;font-family:ui-monospace,Menlo,Consolas,monospace}
+label{display:block;color:#8ea3c4;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+input{width:100%;background:#0b1220;border:1px solid rgba(120,155,205,.3);border-radius:10px;color:#dce7f7;padding:12px 14px;font-size:16px;outline:none}
+input:focus{border-color:#4da3ff}
+button{margin-top:12px;width:100%;background:#4da3ff;color:#06111f;border:none;border-radius:10px;padding:12px;font-size:15px;font-weight:600;cursor:pointer}
+button:disabled{opacity:.5;cursor:default}
+.msg{margin-top:16px;font-size:13px;min-height:20px;color:#8ea3c4}
+.msg.bad{color:#ff4d5e}.msg.ok{color:#2ee6c8}
+.foot{margin-top:40px;font-size:12px;color:#63789b}
+.foot a{color:#8ea3c4}
+table{width:100%;border-collapse:collapse;margin-top:18px;font-size:13px}
+td,th{text-align:left;padding:7px 6px;border-bottom:1px solid rgba(120,155,205,.16);vertical-align:top}
+th{color:#63789b;font-weight:500;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.v{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+.OK,.QUIET{color:#4ade80}.WAITING{color:#8ea3c4}.DEGRADED{color:#ffb845}.STALE,.BROKEN{color:#ff4d5e}
+p{margin:10px 0}</style>
+</head>
+<body>
+<main>
+  <h1>WORLD GAME<small>PRIVATE PREVIEW</small></h1>
+  <div class="meta" id="meta">loading…</div>
+  <form id="f" autocomplete="off">
+    <label for="p">Passphrase</label>
+    <input id="p" type="password" autocapitalize="off" autocorrect="off" spellcheck="false" autofocus>
+    <button id="go" type="submit">Open the world</button>
+  </form>
+  <div class="msg" id="msg"></div>
+  <div class="foot">The game and today's world are stored encrypted; your browser unlocks them here and nothing is sent anywhere. <a href="status.html">Data status</a></div>
+</main>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var say = function (t, kind) { var m = $("msg"); m.textContent = t; m.className = "msg" + (kind ? " " + kind : ""); };
+  var busy = function (b) { $("go").disabled = b; $("p").disabled = b; };
+  if (!(window.crypto && window.crypto.subtle && window.TextEncoder && window.fetch)) {
+    say("This browser cannot unlock the game — it needs a current browser over https.", "bad"); busy(true); return;
+  }
+  var manifest = null, payload = null;
+  var b64 = function (s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); };
+  var hex = function (buf) { return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ("0" + b.toString(16)).slice(-2); }).join(""); };
+
+  function load() {
+    return fetch("manifest.json", { cache: "no-store" }).then(function (r) {
+      if (!r.ok) throw new Error("manifest " + r.status);
+      return r.json();
+    }).then(function (m) {
+      manifest = m;
+      $("meta").textContent = "world as of " + m.snapshot_date + " · built " + String(m.built_at).slice(0, 16).replace("T", " ") + " UTC";
+      return fetch("payload.enc", { cache: "no-store" });
+    }).then(function (r) {
+      if (!r.ok) throw new Error("payload " + r.status);
+      return r.arrayBuffer();
+    }).then(function (buf) { payload = buf; });
+  }
+
+  function unlock(pass) {
+    var enc = new TextEncoder();
+    return crypto.subtle.importKey("raw", enc.encode(pass), "PBKDF2", false, ["deriveKey"]).then(function (km) {
+      return crypto.subtle.deriveKey({ name: "PBKDF2", hash: "SHA-256", salt: b64(manifest.salt), iterations: manifest.iterations },
+        km, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+    }).then(function (key) {
+      return crypto.subtle.decrypt({ name: "AES-GCM", iv: b64(manifest.iv) }, key, payload)
+        .then(function (plain) { return { plain: plain }; }, function () { return { wrong: true }; });
+    }).then(function (r) {
+      if (r.wrong) return r;
+      return crypto.subtle.digest("SHA-256", r.plain).then(function (d) {
+        if (hex(d) !== manifest.plaintext_sha256) return { mismatch: true };
+        return { html: new TextDecoder().decode(r.plain) };
+      });
+    });
+  }
+
+  /* Launch: replace this page with the decrypted game document. The game
+     is one self-contained HTML file; writing it into a freshly opened
+     document runs its inline scripts in order exactly as a normal page
+     load would, keeps the same origin (its quicksave in localStorage
+     survives day to day), and gives it the whole viewport with no iframe
+     sizing or scrolling quirks. */
+  function launch(html) { document.open(); document.write(html); document.close(); }
+
+  function attempt(pass, remember) {
+    busy(true); say("Unlocking…");
+    return unlock(pass).then(function (r) {
+      if (r.wrong) { say("That passphrase did not open the world. Check it and try again.", "bad"); busy(false); $("p").focus(); return; }
+      if (r.mismatch) { say("The files on the site are out of step (it may be mid-update). Reload in a minute.", "bad"); busy(false); return; }
+      if (remember) { try { sessionStorage.setItem("wg_pass", pass); } catch (e) {} }
+      say("Opening the world…", "ok");
+      setTimeout(function () { launch(r.html); }, 30);
+    }).catch(function (e) { say("Could not unlock: " + (e && e.message ? e.message : e), "bad"); busy(false); });
+  }
+
+  busy(true);
+  load().then(function () {
+    busy(false);
+    var saved = null;
+    try { saved = sessionStorage.getItem("wg_pass"); } catch (e) {}
+    if (saved) attempt(saved, false);
+  }).catch(function (e) { say("Could not load the site files (" + e.message + "). Try again in a minute.", "bad"); });
+
+  $("f").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var pass = $("p").value;
+    if (!pass) { say("Type the passphrase you were given.", "bad"); return; }
+    if (!manifest || !payload) { say("Still loading the site files — one moment.", "bad"); return; }
+    attempt(pass, true);
+  });
+})();
+</script>
+</body>
+</html>

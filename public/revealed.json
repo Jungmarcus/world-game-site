@@ -1,0 +1,25 @@
+{
+  "schema": "1.0",
+  "generated": "2026-09-04",
+  "count": 0,
+  "summary": "No forecasts have resolved yet; nothing to reveal.",
+  "scoreboard": {
+    "by_model": {}
+  },
+  "revealed": [],
+  "fingerprint_sha256": "053c770d282d098eb5382cb6d8d507b6afaa5415defbb490896170e1e786cedc",
+  "fingerprint_covers": [
+    "schema",
+    "generated",
+    "count",
+    "summary",
+    "scoreboard",
+    "revealed"
+  ],
+  "how_to_check": "For each forecast, SHA-256 over the JSON of {question, outcomes, resolves_on, filed_on} must equal fingerprint_sha256 AND the line for that id in commitments-ledger.jsonl, whose first_published must be on or before resolves_on. node build/verify-commitment.js revealed.json commitments-ledger.jsonl does exactly this.",
+  "limitations": [
+    "Brier score: 0 is perfect, 0.5 is a coin flip on a two-way question, 2 is the worst possible. Lower is better.",
+    "A matching commitment proves the text was fixed before the answer was known; it says nothing about whether the question was well chosen.",
+    "Scores are only as honest as the resolution — outcomes are entered by hand from the sources named in each question."
+  ]
+}

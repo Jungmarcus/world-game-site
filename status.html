@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>WORLD GAME — data status</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;background:#070b12;color:#dce7f7;font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.5}
+main{max-width:520px;margin:0 auto;padding:12vh 20px 40px}
+h1{font-size:22px;letter-spacing:.18em;font-weight:600;color:#fff}
+h1 small{display:block;font-size:11px;letter-spacing:.3em;color:#63789b;margin-top:6px;font-weight:500}
+.meta{color:#8ea3c4;font-size:13px;margin:22px 0 26px;font-family:ui-monospace,Menlo,Consolas,monospace}
+label{display:block;color:#8ea3c4;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+input{width:100%;background:#0b1220;border:1px solid rgba(120,155,205,.3);border-radius:10px;color:#dce7f7;padding:12px 14px;font-size:16px;outline:none}
+input:focus{border-color:#4da3ff}
+button{margin-top:12px;width:100%;background:#4da3ff;color:#06111f;border:none;border-radius:10px;padding:12px;font-size:15px;font-weight:600;cursor:pointer}
+button:disabled{opacity:.5;cursor:default}
+.msg{margin-top:16px;font-size:13px;min-height:20px;color:#8ea3c4}
+.msg.bad{color:#ff4d5e}.msg.ok{color:#2ee6c8}
+.foot{margin-top:40px;font-size:12px;color:#63789b}
+.foot a{color:#8ea3c4}
+table{width:100%;border-collapse:collapse;margin-top:18px;font-size:13px}
+td,th{text-align:left;padding:7px 6px;border-bottom:1px solid rgba(120,155,205,.16);vertical-align:top}
+th{color:#63789b;font-weight:500;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.v{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+.OK,.QUIET{color:#4ade80}.WAITING{color:#8ea3c4}.DEGRADED{color:#ffb845}.STALE,.BROKEN{color:#ff4d5e}
+p{margin:10px 0}main{max-width:720px;padding-top:8vh}</style>
+</head>
+<body>
+<main>
+  <h1>WORLD GAME<small>DATA STATUS</small></h1>
+  <div class="meta">built 2026-09-04 23:16 UTC</div>
+  <p>The world you play is the snapshot of <b>2026-09-04</b>.</p>
+  <p><b>Verified:</b> the fingerprint matches the snapshot's content <span class="v">(sha256 d4db35c3750bfecf…)</span>.</p>
+  <p>Today's news wire is included (2026-09-04).</p>
+  <p>Data feeds as of 2026-09-04: <b>NEEDS ATTENTION</b> — some data feeds need attention.</p>
+  <table><thead><tr><th>Feed</th><th>Verdict</th><th>In plain words</th><th>Last ran</th></tr></thead><tbody>
+<tr><td>Politics (GDELT)</td><td class="v DEGRADED">DEGRADED</td><td>partly working</td><td class="v">2026-09-04</td></tr>
+<tr><td>The Wire (GDELT)</td><td class="v OK">OK</td><td>working</td><td class="v">2026-09-04</td></tr>
+<tr><td>Newsdesk (Currents/NewsData)</td><td class="v DEGRADED">DEGRADED</td><td>partly working</td><td class="v">2026-09-04</td></tr>
+<tr><td>Conflict (UCDP)</td><td class="v OK">OK</td><td>working</td><td class="v">2026-09-04</td></tr>
+<tr><td>Economy (World Bank)</td><td class="v OK">OK</td><td>working</td><td class="v">2026-09-04</td></tr>
+<tr><td>Energy (OilPriceAPI + EIA)</td><td class="v OK">OK</td><td>working</td><td class="v">2026-09-04</td></tr>
+<tr><td>Sanctions (OFAC)</td><td class="v OK">OK</td><td>working</td><td class="v">2026-09-04</td></tr>
+<tr><td>Notary (signed snapshots)</td><td class="v OK">OK</td><td>working</td><td class="v">2026-09-04</td></tr>
+<tr><td>Registrar (forecast commitments)</td><td class="v OK">OK</td><td>working</td><td class="v">2026-09-04</td></tr>
+<tr><td>Publisher (the site)</td><td class="v BROKEN">BROKEN</td><td>not working</td><td class="v">—</td></tr>
+<tr><td>Historian (weekly brief)</td><td class="v OK">OK</td><td>working</td><td class="v">2026-08-30</td></tr>
+<tr><td>Archive (daily snapshots)</td><td class="v DEGRADED">DEGRADED</td><td>partly working</td><td class="v">2026-09-04</td></tr>
+<tr><td>Daily parade (run-parade.js)</td><td class="v OK">OK</td><td>working</td><td class="v">2026-09-04</td></tr>
+  </tbody></table>
+  <p>Public files: <a href="public/commitments.json">commitments.json</a> · <a href="public/revealed.json">revealed.json</a> · <a href="public/signing.json">signing.json</a></p>
+  <p><a href="verify.html">Verify page</a> · <a href="index.html">Back to the game</a></p>
+  <div class="foot">This page shows whether each data feed ran and whether it answered — not what it said. Details stay on the private Mission Control.<br>'Verified' means the snapshot's fingerprint was recomputed at build time and matched. It proves what the file said on that date, not that the data is current.</div>
+</main>
+</body>
+</html>

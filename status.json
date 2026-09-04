@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0",
+  "built_at": "2026-09-04T23:16:37.437Z",
+  "date": "2026-09-04",
+  "snapshot_date": "2026-09-04",
+  "snapshot_fingerprint": "d4db35c3750bfecf322799f35eed77a47e6c11c47a9ca67b9497aded002c3f9e",
+  "snapshot_fingerprint_verified": true,
+  "snapshot_fingerprint_note": "the fingerprint matches the snapshot's content",
+  "wire_included": true,
+  "wire_date": "2026-09-04",
+  "public_files": [
+    "commitments.json",
+    "revealed.json",
+    "signing.json"
+  ],
+  "health": {
+    "checked": true,
+    "date": "2026-09-04",
+    "overall": "NEEDS ATTENTION",
+    "overall_plain": "some data feeds need attention",
+    "connectors": [
+      {
+        "id": "politics",
+        "name": "Politics (GDELT)",
+        "verdict": "DEGRADED",
+        "plain": "partly working",
+        "last_run": "2026-09-04"
+      },
+      {
+        "id": "wire",
+        "name": "The Wire (GDELT)",
+        "verdict": "OK",
+        "plain": "working",
+        "last_run": "2026-09-04"
+      },
+      {
+        "id": "newsdesk",
+        "name": "Newsdesk (Currents/NewsData)",
+        "verdict": "DEGRADED",
+        "plain": "partly working",
+        "last_run": "2026-09-04"
+      },
+      {
+        "id": "conflict",
+        "name": "Conflict (UCDP)",
+        "verdict": "OK",
+        "plain": "working",
+        "last_run": "2026-09-04"
+      },
+      {
+        "id": "economy",
+        "name": "Economy (World Bank)",
+        "verdict": "OK",
+        "plain": "working",
+        "last_run": "2026-09-04"
+      },
+      {
+        "id": "energy",
+        "name": "Energy (OilPriceAPI + EIA)",
+        "verdict": "OK",
+        "plain": "working",
+        "last_run": "2026-09-04"
+      },
+      {
+        "id": "sanctions",
+        "name": "Sanctions (OFAC)",
+        "verdict": "OK",
+        "plain": "working",
+        "last_run": "2026-09-04"
+      },
+      {
+        "id": "notary",
+        "name": "Notary (signed snapshots)",
+        "verdict": "OK",
+        "plain": "working",
+        "last_run": "2026-09-04"
+      },
+      {
+        "id": "registrar",
+        "name": "Registrar (forecast commitments)",
+        "verdict": "OK",
+        "plain": "working",
+        "last_run": "2026-09-04"
+      },
+      {
+        "id": "publisher",
+        "name": "Publisher (the site)",
+        "verdict": "BROKEN",
+        "plain": "not working",
+        "last_run": null
+      },
+      {
+        "id": "historian",
+        "name": "Historian (weekly brief)",
+        "verdict": "OK",
+        "plain": "working",
+        "last_run": "2026-08-30"
+      },
+      {
+        "id": "archive",
+        "name": "Archive (daily snapshots)",
+        "verdict": "DEGRADED",
+        "plain": "partly working",
+        "last_run": "2026-09-04"
+      },
+      {
+        "id": "parade",
+        "name": "Daily parade (run-parade.js)",
+        "verdict": "OK",
+        "plain": "working",
+        "last_run": "2026-09-04"
+      }
+    ]
+  },
+  "limitations": [
+    "This page shows whether each data feed ran and whether it answered — not what it said. Details stay on the private Mission Control.",
+    "'Verified' means the snapshot's fingerprint was recomputed at build time and matched. It proves what the file said on that date, not that the data is current."
+  ]
+}

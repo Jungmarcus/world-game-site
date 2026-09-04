@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verify a World Game snapshot</title>
+<!-- WORLD GAME — browser verifier (Phase 6.3, the trust boundary).
+     Self-contained: no libraries, no network, nothing sent anywhere. Everything
+     runs in your browser with WebCrypto. Mirrors build/verify-snapshot.js
+     (the command-line version) check for check. Do not change the canonical
+     forms below — they must stay identical to server/sign.js. -->
+<style>
+  :root { color-scheme: light dark; --bg: #f7f6f2; --fg: #1d1d1b; --mute: #666; --line: #d8d5cc; --ok: #1b7f3b; --bad: #b3261e; --warn: #8a6d00; --card: #fff; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #16171a; --fg: #ececea; --mute: #a0a09b; --line: #34363c; --ok: #5fcf7f; --bad: #ff7b72; --warn: #e3c05a; --card: #1f2126; } }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 20px 60px; }
+  h1 { font-size: 24px; margin: 0 0 6px; }
+  p.lead { color: var(--mute); margin: 0 0 24px; }
+  .slot { border: 1px dashed var(--line); border-radius: 8px; padding: 12px 14px; margin-bottom: 12px; background: var(--card); }
+  .slot.has { border-style: solid; }
+  .slot label { display: block; font-weight: 600; margin-bottom: 4px; }
+  .slot small { color: var(--mute); }
+  .slot input[type=file] { display: block; margin: 6px 0; }
+  .slot textarea { width: 100%; box-sizing: border-box; height: 64px; font: 12px/1.4 ui-monospace, Menlo, Consolas, monospace; background: transparent; color: var(--fg); border: 1px solid var(--line); border-radius: 4px; padding: 6px; }
+  .slot .name { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; }
+  button { font: inherit; font-weight: 600; padding: 10px 18px; border-radius: 6px; border: 1px solid var(--line); background: var(--fg); color: var(--bg); cursor: pointer; }
+  button:disabled { opacity: .5; cursor: default; }
+  #verdict { margin-top: 20px; padding: 14px 16px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); display: none; }
+  #verdict.valid { border-color: var(--ok); } #verdict.invalid { border-color: var(--bad); } #verdict.unsupported { border-color: var(--warn); }
+  #verdict h2 { margin: 0 0 8px; font-size: 18px; }
+  .valid h2 { color: var(--ok); } .invalid h2 { color: var(--bad); } .unsupported h2 { color: var(--warn); }
+  pre { white-space: pre-wrap; word-break: break-word; font: 13px/1.5 ui-monospace, Menlo, Consolas, monospace; margin: 8px 0 0; }
+  details { margin-top: 28px; color: var(--mute); font-size: 14px; } code { font-family: ui-monospace, Menlo, Consolas, monospace; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Verify a World Game snapshot</h1>
+  <p class="lead">Prove that a snapshot file is exactly what the World Game machine signed on its date, and has not been edited since. Nothing leaves your browser.</p>
+
+  <div class="slot" id="slot-snap"><label>1. The snapshot <small>(world-YYYY-MM-DD.json or latest.json)</small></label>
+    <input type="file" accept=".json,application/json" data-for="snap"><small>or paste it:</small><textarea data-for="snap" spellcheck="false"></textarea><div class="name"></div></div>
+  <div class="slot" id="slot-sig"><label>2. Its signature <small>(the matching .sig.json)</small></label>
+    <input type="file" accept=".json,application/json" data-for="sig"><small>or paste it:</small><textarea data-for="sig" spellcheck="false"></textarea><div class="name"></div></div>
+  <div class="slot" id="slot-key"><label>3. The public key <small>(signing.json, published with the site)</small></label>
+    <input type="file" accept=".json,application/json" data-for="key"><small>or paste it:</small><textarea data-for="key" spellcheck="false"></textarea><div class="name"></div></div>
+
+  <button id="go">Verify</button>
+  <div id="verdict"><h2></h2><pre></pre></div>
+
+  <details><summary>What is being checked, exactly</summary>
+    <ol>
+      <li><b>Seal</b> — the snapshot's SHA-256 fingerprint is recomputed from the file's own bytes over <code>{schema_version:"2.0", date, source, countries_count, markets, countries}</code> in that key order and must equal the fingerprint stored in the file.</li>
+      <li><b>Match</b> — the signed statement names that exact fingerprint, date, source, country count and market prices.</li>
+      <li><b>Key</b> — signing.json's <code>key_id</code> is the first 16 hex of SHA-256 over its own public key, and the sidecar names the same key.</li>
+      <li><b>Signature</b> — the Ed25519 signature over the canonical statement (keys sorted at every level, no whitespace, UTF-8) verifies with that public key.</li>
+    </ol>
+    <p>A VALID result proves origin and integrity. It does not prove the data inside is true or current. Command-line equivalent: <code>node verify-snapshot.js snapshot.json snapshot.sig.json signing.json</code> (one file, needs only Node 18+). WebCrypto Ed25519 needs Chrome 137+, Safari 17+ or Firefox 130+; older browsers get an honest "cannot verify here" and the command-line route.</p>
+  </details>
+</main>
+<script>
+/* WG-VERIFY-CORE-START — pure functions, also executed by build/test_signing.js under Node's webcrypto */
+function sealString(snap) {
+  return JSON.stringify({
+    schema_version: "2.0", date: snap.date, source: snap.source,
+    countries_count: snap.countries_count, markets: snap.markets || null, countries: snap.countries
+  });
+}
+function canonical(v) {
+  if (v === null || typeof v !== "object") return JSON.stringify(v);
+  if (Array.isArray(v)) return "[" + v.map(canonical).join(",") + "]";
+  return "{" + Object.keys(v).sort().map(function (k) { return JSON.stringify(k) + ":" + canonical(v[k]); }).join(",") + "}";
+}
+function hex(buf) { return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ("0" + b.toString(16)).slice(-2); }).join(""); }
+function b64ToBytes(s) { var bin = atob(String(s).replace(/\s+/g, "")); var out = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i); return out; }
+function pemToDer(pem) { return b64ToBytes(String(pem).replace(/-----[^-]+-----/g, "")); }
+async function sha256Hex(text) { return hex(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text))); }
+async function keyIdOf(pem) { return (await sha256Hex(String(pem).replace(/\r\n/g, "\n").trim())).slice(0, 16); }
+
+/* returns {status: "valid"|"invalid"|"unsupported", lines[], summary} */
+async function verifyAll(snapText, sigText, keyText, snapName) {
+  var lines = [];
+  var fail = function (what, why) { lines.push("FAIL  " + what + " — " + why); return { status: "invalid", lines: lines, summary: why }; };
+  var pass = function (what, detail) { lines.push("ok    " + what + (detail ? " — " + detail : "")); };
+  if (!(typeof crypto !== "undefined" && crypto.subtle)) return { status: "unsupported", lines: lines, summary: "this page needs WebCrypto (a secure https:// or file:// context in a modern browser). Use the command-line verifier instead." };
+  var snap, sidecar, signing;
+  try { snap = JSON.parse(snapText); } catch (e) { return fail("snapshot", "not valid JSON (" + e.message + ")"); }
+  try { sidecar = JSON.parse(sigText); } catch (e) { return fail("signature file", "not valid JSON (" + e.message + ")"); }
+  try { signing = JSON.parse(keyText); } catch (e) { return fail("public key", "not valid JSON (" + e.message + ")"); }
+
+  if (!snap || typeof snap !== "object" || !Array.isArray(snap.countries)) return fail("snapshot", "this is not a World Game snapshot (no countries array)");
+  if (snap.schema_version !== "2.0") return fail("snapshot", "schema " + (snap.schema_version || "1.0") + " — only schema 2.0 snapshots carry a seal over date/source/markets/countries and can be signed");
+  var fp = await sha256Hex(sealString(snap));
+  if (fp !== snap.fingerprint_sha256) return fail("seal", "the fingerprint recomputed from this file (" + fp.slice(0, 16) + "…) is not the one stored in it (" + String(snap.fingerprint_sha256).slice(0, 16) + "…): the file was edited after it was sealed");
+  pass("seal", "fingerprint " + fp.slice(0, 16) + "… recomputed from the file's own bytes and matches");
+
+  if (!sidecar || typeof sidecar !== "object" || !sidecar.statement || !sidecar.signature) return fail("signature file", "this is not a .sig.json sidecar (needs statement + signature)");
+  var st = sidecar.statement;
+  if (st.schema !== "wg-snapshot-signature/1") return fail("statement", "unknown statement schema " + JSON.stringify(st.schema));
+  if (st.fingerprint_sha256 !== fp) return fail("match", "the signature is for fingerprint " + String(st.fingerprint_sha256).slice(0, 16) + "…, not this file's " + fp.slice(0, 16) + "… — it belongs to a different snapshot");
+  if (st.date !== snap.date) return fail("match", "the statement is dated " + st.date + " but the snapshot says " + snap.date);
+  if (st.countries_count !== snap.countries_count || st.source !== snap.source || canonical(st.markets || null) !== canonical(snap.markets || null))
+    return fail("match", "the statement's source / country count / market prices do not match the snapshot");
+  pass("match", "statement names this exact fingerprint, dated " + st.date + ", " + st.countries_count + " countries" + (st.markets ? ", markets " + Object.keys(st.markets).join("/") : ""));
+  if (snapName && st.file && snapName !== st.file) lines.push("note  the statement names the file " + st.file + "; you gave " + snapName + " (fine if you renamed it — the fingerprint is what counts)");
+
+  if (!signing || typeof signing !== "object" || !signing.public_key_pem) return fail("public key", "signing.json has no public_key_pem");
+  if (signing.alg && signing.alg !== "Ed25519") return fail("public key", "signing.json says alg " + signing.alg + "; this verifier only knows Ed25519");
+  var kid = await keyIdOf(signing.public_key_pem);
+  if (signing.key_id && signing.key_id !== kid) return fail("public key", "signing.json's key_id (" + signing.key_id + ") is not the sha256 of its own public key (" + kid + ") — the key file was altered");
+  if (sidecar.key_id && sidecar.key_id !== kid) return fail("public key", "the sidecar was signed by key " + sidecar.key_id + " but signing.json holds key " + kid + " — wrong key file, or a rotated key");
+  pass("key", "key_id " + kid + (signing.created ? " (published " + String(signing.created).slice(0, 10) + ")" : ""));
+
+  var key;
+  try { key = await crypto.subtle.importKey("spki", pemToDer(signing.public_key_pem), { name: "Ed25519" }, false, ["verify"]); }
+  catch (e) {
+    return { status: "unsupported", lines: lines, summary: "this browser cannot verify Ed25519 signatures with WebCrypto (" + (e && e.message || e) + "). The seal and statement checks above passed, but the signature itself could not be checked here. Use Chrome 137+, Safari 17+ or Firefox 130+, or run the command-line verifier: node verify-snapshot.js snapshot.json snapshot.sig.json signing.json" };
+  }
+  var sigBytes;
+  try { sigBytes = b64ToBytes(sidecar.signature); } catch (e) { return fail("signature", "the signature is not valid base64"); }
+  if (sigBytes.length !== 64) return fail("signature", "the signature is " + sigBytes.length + " bytes, not the 64 an Ed25519 signature has");
+  var good = false;
+  try { good = await crypto.subtle.verify({ name: "Ed25519" }, key, sigBytes, new TextEncoder().encode(canonical(st))); } catch (e) { good = false; }
+  if (!good) return fail("signature", "the Ed25519 signature does not verify: the statement or the signature was altered, or a different key signed it");
+  pass("signature", "Ed25519 signature verifies over the canonical statement" + (sidecar.signed_at ? " (signed " + sidecar.signed_at + ")" : ""));
+  return { status: "valid", lines: lines, summary: "VALID — this file is byte-for-byte what the holder of key " + kid + " signed as the snapshot for " + snap.date + ". It has not been edited since. (This proves origin and integrity, not that the data inside is correct.)" };
+}
+/* WG-VERIFY-CORE-END */
+
+(function () {
+  var texts = { snap: "", sig: "", key: "" }, names = { snap: "", sig: "", key: "" };
+  var slots = { snap: document.getElementById("slot-snap"), sig: document.getElementById("slot-sig"), key: document.getElementById("slot-key") };
+  function set(which, text, name) {
+    texts[which] = text; names[which] = name || "";
+    slots[which].classList.toggle("has", !!text);
+    slots[which].querySelector(".name").textContent = name ? "loaded: " + name + " (" + text.length + " chars)" : (text ? "pasted (" + text.length + " chars)" : "");
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("input[type=file]"), function (inp) {
+    inp.addEventListener("change", function () {
+      var f = inp.files && inp.files[0]; if (!f) return;
+      var r = new FileReader(); r.onload = function () { set(inp.dataset.for, String(r.result), f.name); }; r.readAsText(f);
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("textarea"), function (ta) {
+    ta.addEventListener("input", function () { set(ta.dataset.for, ta.value.trim(), ""); });
+  });
+  var v = document.getElementById("verdict"), h = v.querySelector("h2"), pre = v.querySelector("pre");
+  document.getElementById("go").addEventListener("click", async function () {
+    var missing = ["snap", "sig", "key"].filter(function (k) { return !texts[k]; });
+    v.style.display = "block";
+    if (missing.length) { v.className = "invalid"; h.textContent = "Missing input"; pre.textContent = "Please provide all three files: snapshot, its .sig.json, and signing.json."; return; }
+    h.textContent = "Checking…"; v.className = ""; pre.textContent = "";
+    var r;
+    try { r = await verifyAll(texts.snap, texts.sig, texts.key, names.snap); }
+    catch (e) { r = { status: "invalid", lines: [], summary: "unexpected error: " + (e && e.message || e) }; }
+    v.className = r.status;
+    h.textContent = r.status === "valid" ? "VALID" : r.status === "invalid" ? "INVALID" : "CANNOT VERIFY IN THIS BROWSER";
+    pre.textContent = r.lines.join("\n") + (r.lines.length ? "\n\n" : "") + r.summary;
+  });
+})();
+</script>
+</body>
+</html>

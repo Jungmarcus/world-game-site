@@ -1,0 +1,17 @@
+{
+  "statement": {
+    "schema": "wg-snapshot-signature/1",
+    "date": "2026-09-04",
+    "file": "latest.json",
+    "fingerprint_sha256": "d4db35c3750bfecf322799f35eed77a47e6c11c47a9ca67b9497aded002c3f9e",
+    "source": "baseline + world-updates.json (2026-09-04, 128 countries, sha256 da7f48c8a948) + conflict-updates.json (2026-09-04, 21 countries, sha256 48df81ea86e3) + energy-updates.json (2026-09-04, oil/gas, sha256 1b4282d3f040)",
+    "countries_count": 129,
+    "markets": {
+      "oil": 95.23,
+      "gas": 9.18
+    }
+  },
+  "signature": "xT8dKgqv89iMVvMJD9ylpdc/rnpP5eERpAT18LIbOv9VX0dWVDMYFnWuKLxzrZ8AEzQcVoKepTtWzCg3gBABAw==",
+  "key_id": "d9f5101a82f350e1",
+  "signed_at": "2026-09-04T23:16:37.277Z"
+}
