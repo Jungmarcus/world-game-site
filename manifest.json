@@ -1,25 +1,27 @@
 {
   "schema_version": "1.0",
-  "built_at": "2026-09-05T08:52:57.847Z",
+  "built_at": "2026-09-05T12:08:47.026Z",
   "date": "2026-09-05",
   "snapshot_date": "2026-09-05",
   "snapshot_fingerprint": "7ad5aa386ef4e35db7bc6ff0d0cf007a7fb06072114a1cb8c59408c3268b43a5",
   "kdf": "PBKDF2-SHA256",
   "iterations": 400000,
-  "salt": "ddCnGNf0Q90FT+avqqOY2g==",
+  "salt": "V2Yh6tBnFyNnYJHpYGE44w==",
   "cipher": "AES-256-GCM",
-  "iv": "GGTXYpMk72/pF0Ws",
-  "plaintext_sha256": "3bd98b4dcb2ca7cb4184bfbe6eb9d931955b77be78a5db53971aedc6cb761555",
+  "iv": "dKGmHCkUxvEL6fBz",
+  "plaintext_sha256": "4168bd42fdb6019eff7f113be540cddd9e6282364deb317f4a092cd09865f603",
   "sizes": {
-    "plaintext": 1410238,
-    "payload": 1410254,
-    "game": 1281961,
+    "plaintext": 1699068,
+    "payload": 1699084,
+    "game": 1543726,
     "latest": 113877,
-    "wire": 9567
+    "wire": 9567,
+    "overnight": 26989
   },
   "includes": {
     "latest": true,
     "wire": true,
+    "overnight": true,
     "public": [
       "commitments.json",
       "revealed.json",
