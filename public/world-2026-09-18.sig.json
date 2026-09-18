@@ -2,7 +2,7 @@
   "statement": {
     "schema": "wg-snapshot-signature/1",
     "date": "2026-09-18",
-    "file": "latest.json",
+    "file": "world-2026-09-18.json",
     "fingerprint_sha256": "ae5e1c56ec679ba997290bd75203da78f1e82c8dfd08789eaa5cc00e6a105ebd",
     "source": "baseline + world-updates.json (2026-09-18, 128 countries, sha256 87d9dadc313a) + conflict-updates.json (2026-09-18, 21 countries, sha256 48df81ea86e3) + energy-updates.json (2026-09-18, gas, sha256 425236cd9d14)",
     "countries_count": 129,
@@ -10,7 +10,7 @@
       "gas": 8.99
     }
   },
-  "signature": "TcfWnc1zCMiKAVrnBSJR0egLblQ7kVr6K3V0PEr90ymocEmHBrcvNrEsw5IJNgt67PCSox3tJTdwSLuSVynHBQ==",
+  "signature": "6DA0OSYzl8icYlMjUGkASAgEPkrv0E6nChma6qLUUBJQDi/waV4gE+uOpzoj/M3DS8/7WRTM0cHf14OkWLa9Bw==",
   "key_id": "d9f5101a82f350e1",
-  "signed_at": "2026-09-18T08:52:48.515Z"
+  "signed_at": "2026-09-18T08:52:48.511Z"
 }
