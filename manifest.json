@@ -1,22 +1,22 @@
 {
   "schema_version": "1.0",
-  "built_at": "2026-09-20T08:53:08.078Z",
-  "date": "2026-09-20",
-  "snapshot_date": "2026-09-20",
-  "snapshot_fingerprint": "e069a4869e3d524f8ebf94112fae138a42e9c4d9d9e1b09e27d2d8851a018fc2",
+  "built_at": "2026-09-21T08:52:56.208Z",
+  "date": "2026-09-21",
+  "snapshot_date": "2026-09-21",
+  "snapshot_fingerprint": "097d41f04a45ba96b96ed7d215f9a0fa3bf6a5d7d018d42cf66b7f9a141562ae",
   "kdf": "PBKDF2-SHA256",
   "iterations": 400000,
-  "salt": "4+rMe5TESvkjwMDHIDyVVg==",
+  "salt": "gKcIvYIyO0Lpyl4JQWSAKA==",
   "cipher": "AES-256-GCM",
-  "iv": "wI19KekC16Z0U8vn",
-  "plaintext_sha256": "9f377929cb60c3bd690003a5fe823c0e9ce42700c32120663bf4b2fa44e29e3e",
+  "iv": "g6GPg2hkECX3ahO6",
+  "plaintext_sha256": "d971e23c8a7ba2d15600d786e49533a5044462be59ce50582f59c4a91aeea640",
   "sizes": {
-    "plaintext": 1696923,
-    "payload": 1696939,
+    "plaintext": 1719160,
+    "payload": 1719176,
     "game": 1543726,
-    "latest": 113515,
-    "wire": 8127,
-    "overnight": 26646
+    "latest": 113861,
+    "wire": 8031,
+    "overnight": 48633
   },
   "includes": {
     "latest": true,
@@ -29,8 +29,8 @@
     ]
   },
   "signed_files": [
-    "world-2026-09-20.json",
-    "world-2026-09-20.sig.json",
+    "world-2026-09-21.json",
+    "world-2026-09-21.sig.json",
     "latest.sig.json"
   ]
 }
