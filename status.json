@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0",
-  "built_at": "2026-10-05T08:52:45.574Z",
-  "date": "2026-10-05",
-  "snapshot_date": "2026-10-05",
-  "snapshot_fingerprint": "e7d5d804e7068a4a33e5d85310c34a1915f7de08282f0b5fbe1947f63f553d0a",
+  "built_at": "2026-10-06T08:52:48.306Z",
+  "date": "2026-10-06",
+  "snapshot_date": "2026-10-06",
+  "snapshot_fingerprint": "cb48278fd531746179d043a56a81c18a9aeeb28368ea96fc0715b60a1c42e5ce",
   "snapshot_fingerprint_verified": true,
   "snapshot_fingerprint_note": "the fingerprint matches the snapshot's content",
   "wire_included": true,
-  "wire_date": "2026-10-05",
+  "wire_date": "2026-10-06",
   "public_files": [
     "commitments.json",
     "revealed.json",
@@ -15,7 +15,7 @@
   ],
   "health": {
     "checked": true,
-    "date": "2026-10-05",
+    "date": "2026-10-06",
     "overall": "NEEDS ATTENTION",
     "overall_plain": "some data feeds need attention",
     "connectors": [
@@ -24,84 +24,84 @@
         "name": "Politics (GDELT)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-05"
+        "last_run": "2026-10-06"
       },
       {
         "id": "wire",
         "name": "The Wire (GDELT)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-05"
+        "last_run": "2026-10-06"
       },
       {
         "id": "newsdesk",
         "name": "Newsdesk (Currents/NewsData)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-05"
+        "last_run": "2026-10-06"
       },
       {
         "id": "conflict",
         "name": "Conflict (UCDP)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-05"
+        "last_run": "2026-10-06"
       },
       {
         "id": "economy",
         "name": "Economy (World Bank)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-05"
+        "last_run": "2026-10-06"
       },
       {
         "id": "energy",
         "name": "Energy (OilPriceAPI + EIA)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-05"
+        "last_run": "2026-10-06"
       },
       {
         "id": "sanctions",
         "name": "Sanctions (OFAC)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-05"
+        "last_run": "2026-10-06"
       },
       {
         "id": "notary",
         "name": "Notary (signed snapshots)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-05"
+        "last_run": "2026-10-06"
       },
       {
         "id": "registrar",
         "name": "Registrar (forecast commitments)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-05"
+        "last_run": "2026-10-06"
       },
       {
         "id": "overnight",
         "name": "Overnight brief (what changed)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-05"
+        "last_run": "2026-10-06"
       },
       {
         "id": "backtest",
         "name": "Backtester (does the model see the future?)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-05"
+        "last_run": "2026-10-06"
       },
       {
         "id": "publisher",
         "name": "Publisher (the site)",
         "verdict": "STALE",
         "plain": "did not run on time",
-        "last_run": "2026-10-04"
+        "last_run": "2026-10-05"
       },
       {
         "id": "historian",
@@ -115,14 +115,14 @@
         "name": "Archive (daily snapshots)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-05"
+        "last_run": "2026-10-06"
       },
       {
         "id": "parade",
         "name": "Daily parade (run-parade.js)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-05"
+        "last_run": "2026-10-06"
       }
     ]
   },
