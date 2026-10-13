@@ -1,17 +1,17 @@
 {
   "statement": {
     "schema": "wg-snapshot-signature/1",
-    "date": "2026-10-12",
+    "date": "2026-10-13",
     "file": "latest.json",
-    "fingerprint_sha256": "e147511a43063071151afdd264fb389633825c38e9a35d761a124e6b6a6cdfff",
-    "source": "baseline + world-updates.json (2026-10-12, 128 countries, sha256 2ae9ad1d1948) + conflict-updates.json (2026-10-12, 21 countries, sha256 2fa2cbe8e72b) + energy-updates.json (2026-10-12, oil/gas, sha256 941e871767dd)",
+    "fingerprint_sha256": "21f3f09cb4ca06a11cc85de6aa7f1ebd1de7988e38a54eaa9dd6f35c2ebe19b8",
+    "source": "baseline + world-updates.json (2026-10-13, 128 countries, sha256 641de0848ff6) + conflict-updates.json (2026-10-13, 21 countries, sha256 2fa2cbe8e72b) + energy-updates.json (2026-10-13, oil/gas, sha256 05b193d02be6)",
     "countries_count": 129,
     "markets": {
-      "oil": 104.58,
+      "oil": 104.91,
       "gas": 9.87
     }
   },
-  "signature": "aZJV31F2Jz9BQkwSFr0r42LFCOr19EowgAZgRglji5NmCSQN78VsWEywM39Dh6znuHI+Ohqo0OUz8kesJnF4Cg==",
+  "signature": "x2bcgThdosEKcnx4lFez6UR1UHkuUTnioFk2qrpmXbemo/I4u9F1PEiSwpkxqxJ5/oLVFg24soE5fYYTdUFhAw==",
   "key_id": "d9f5101a82f350e1",
-  "signed_at": "2026-10-12T08:52:54.709Z"
+  "signed_at": "2026-10-13T08:52:54.060Z"
 }
