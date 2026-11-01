@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0",
-  "built_at": "2026-10-31T08:53:00.734Z",
-  "date": "2026-10-31",
-  "snapshot_date": "2026-10-31",
-  "snapshot_fingerprint": "6e74c2b8700e0adcf16a83279f424cae828f459dd7d5b0e4e02087e023f2ade0",
+  "built_at": "2026-11-01T08:53:06.282Z",
+  "date": "2026-11-01",
+  "snapshot_date": "2026-11-01",
+  "snapshot_fingerprint": "7542fd6d580eee2129716db82311beee7e42345f9d33698cf54d2b5627c70dd7",
   "snapshot_fingerprint_verified": true,
   "snapshot_fingerprint_note": "the fingerprint matches the snapshot's content",
   "wire_included": true,
-  "wire_date": "2026-10-31",
+  "wire_date": "2026-11-01",
   "public_files": [
     "commitments.json",
     "revealed.json",
@@ -15,7 +15,7 @@
   ],
   "health": {
     "checked": true,
-    "date": "2026-10-31",
+    "date": "2026-11-01",
     "overall": "NEEDS ATTENTION",
     "overall_plain": "some data feeds need attention",
     "connectors": [
@@ -24,105 +24,105 @@
         "name": "Politics (GDELT)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-31"
+        "last_run": "2026-11-01"
       },
       {
         "id": "wire",
         "name": "The Wire (GDELT)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-31"
+        "last_run": "2026-11-01"
       },
       {
         "id": "newsdesk",
         "name": "Newsdesk (Currents/NewsData)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-31"
+        "last_run": "2026-11-01"
       },
       {
         "id": "conflict",
         "name": "Conflict (UCDP)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-31"
+        "last_run": "2026-11-01"
       },
       {
         "id": "economy",
         "name": "Economy (World Bank)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-31"
+        "last_run": "2026-11-01"
       },
       {
         "id": "energy",
         "name": "Energy (OilPriceAPI + EIA)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-31"
+        "last_run": "2026-11-01"
       },
       {
         "id": "sanctions",
         "name": "Sanctions (OFAC)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-31"
+        "last_run": "2026-11-01"
       },
       {
         "id": "notary",
         "name": "Notary (signed snapshots)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-31"
+        "last_run": "2026-11-01"
       },
       {
         "id": "registrar",
         "name": "Registrar (forecast commitments)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-31"
+        "last_run": "2026-11-01"
       },
       {
         "id": "overnight",
         "name": "Overnight brief (what changed)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-31"
+        "last_run": "2026-11-01"
       },
       {
         "id": "backtest",
         "name": "Backtester (does the model see the future?)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-31"
+        "last_run": "2026-11-01"
       },
       {
         "id": "publisher",
         "name": "Publisher (the site)",
         "verdict": "STALE",
         "plain": "did not run on time",
-        "last_run": "2026-10-30"
+        "last_run": "2026-10-31"
       },
       {
         "id": "historian",
         "name": "Historian (weekly brief)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-25"
+        "last_run": "2026-11-01"
       },
       {
         "id": "archive",
         "name": "Archive (daily snapshots)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-31"
+        "last_run": "2026-11-01"
       },
       {
         "id": "parade",
         "name": "Daily parade (run-parade.js)",
         "verdict": "OK",
         "plain": "working",
-        "last_run": "2026-10-31"
+        "last_run": "2026-11-01"
       }
     ]
   },
