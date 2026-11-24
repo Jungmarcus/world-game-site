@@ -1,0 +1,17 @@
+{
+  "statement": {
+    "schema": "wg-snapshot-signature/1",
+    "date": "2026-11-24",
+    "file": "world-2026-11-24.json",
+    "fingerprint_sha256": "9e15896c631529248a60802179774c6741bcaa10f422b80c7729001f1c9973ae",
+    "source": "baseline + world-updates.json (2026-11-24, 128 countries, sha256 9ae608205dd3) [economy carried forward: debtPct from 2026-11-23 — World Bank did not answer for it on 2026-11-24] + conflict-updates.json (2026-11-24, 23 countries, sha256 28191b72e86b) + energy-updates.json (2026-11-24, oil/gas, sha256 08345da55fd9)",
+    "countries_count": 129,
+    "markets": {
+      "oil": 88.57,
+      "gas": 10.28
+    }
+  },
+  "signature": "xqqRf21pcBkVdL1HnLveUrV7yuvghEOmyPlRbKxFaRk8IFxcFZGS90AyZe2mAN9EyVTJ+tQyWKBdlvxnvpFAAA==",
+  "key_id": "d9f5101a82f350e1",
+  "signed_at": "2026-11-24T08:53:35.356Z"
+}

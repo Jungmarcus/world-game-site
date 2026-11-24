@@ -1,17 +1,17 @@
 {
   "statement": {
     "schema": "wg-snapshot-signature/1",
-    "date": "2026-11-23",
+    "date": "2026-11-24",
     "file": "latest.json",
-    "fingerprint_sha256": "0e8217d1d310f1a8c981c6941e1c6373beded23245d00461e4c8ad861225c268",
-    "source": "baseline + world-updates.json (2026-11-23, 128 countries, sha256 ab433aca10df) + conflict-updates.json (2026-11-23, 23 countries, sha256 28191b72e86b) + energy-updates.json (2026-11-23, oil/gas, sha256 209a7fa672c0)",
+    "fingerprint_sha256": "9e15896c631529248a60802179774c6741bcaa10f422b80c7729001f1c9973ae",
+    "source": "baseline + world-updates.json (2026-11-24, 128 countries, sha256 9ae608205dd3) [economy carried forward: debtPct from 2026-11-23 — World Bank did not answer for it on 2026-11-24] + conflict-updates.json (2026-11-24, 23 countries, sha256 28191b72e86b) + energy-updates.json (2026-11-24, oil/gas, sha256 08345da55fd9)",
     "countries_count": 129,
     "markets": {
-      "oil": 91.83,
-      "gas": 10.09
+      "oil": 88.57,
+      "gas": 10.28
     }
   },
-  "signature": "A5HcSs8TzlpgE1r1NRF7xmg9r2YrPxXwtLZs8e7zqU+/j+G5AMiwV9ZRbU/brj3Ut8rXL+zeYkafMAPK8+qIBg==",
+  "signature": "3LhPAYdhnZb0CE+J/bYZCaZx5f0l6Jx0lCS7WRaaI234z989RLqy2rMTvXITSoWc3SjywopjCVGgjRvkmAP7BA==",
   "key_id": "d9f5101a82f350e1",
-  "signed_at": "2026-11-23T08:52:59.888Z"
+  "signed_at": "2026-11-24T08:53:35.360Z"
 }
