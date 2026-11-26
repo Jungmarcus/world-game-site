@@ -1,6 +1,6 @@
 {
   "schema": "1.0",
-  "generated": "2026-11-25",
+  "generated": "2026-11-26",
   "count": 6,
   "entries": [
     {
@@ -61,7 +61,7 @@
       "twin": true
     }
   ],
-  "fingerprint_sha256": "3ca5bd92ef7dff1a5d345d0a52b7c78e7e10d2b164c2d37ae0f11378a25e1c32",
+  "fingerprint_sha256": "836529a0a8f4ea1343cb32680ac49f4aa081832cb661c42e7f189f9343623fac",
   "fingerprint_covers": [
     "schema",
     "generated",

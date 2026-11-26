@@ -1,13 +1,13 @@
 {
   "schema": "1.0",
-  "generated": "2026-11-25",
+  "generated": "2026-11-26",
   "count": 0,
   "summary": "No forecasts have resolved yet; nothing to reveal.",
   "scoreboard": {
     "by_model": {}
   },
   "revealed": [],
-  "fingerprint_sha256": "9ff115672631ae9abb0bf603c39b1357daab6f6cb3ac0717ef69e8f5f87be9e5",
+  "fingerprint_sha256": "6bc45f6a03ac19383c17d8a1edc1ae08a55691dad9a25149caf759baf0ceb1d0",
   "fingerprint_covers": [
     "schema",
     "generated",
